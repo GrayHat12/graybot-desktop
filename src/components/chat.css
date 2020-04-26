@@ -1,6 +1,4 @@
 .chatParent {
-    overflow-y: auto;
-    overflow-x: hidden;
     width: inherit;
     height: inherit;
     padding: 1rem;
