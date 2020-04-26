@@ -2,6 +2,29 @@
   "name": "graybot-desktop",
   "version": "0.1.0",
   "private": true,
+  "description": "A desktop utility bot",
+  "keywords": ["bot","graybot","discord","desktop","electron","reactjs"],
+  "bugs": {
+    "email": "grayhathacks10@gmail.com",
+    "url": "https://github.com/GrayHat12/graybot-desktop/issues"
+  },
+  "contributors": [
+    {
+      "name": "Kumar Anurag",
+      "url": "https://github.com/anuraq"
+    }
+  ],
+  "readme": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GrayHat12/graybot-desktop.git"
+  },
+  "homepage": "https://github.com/GrayHat12/graybot-desktop",
+  "author": {
+    "name": "GrayHat",
+    "email": "grayhathacks10@gmail.com",
+    "url": "https://gray-hat.me/" 
+  },
   "main": "src/electron-start.js",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
