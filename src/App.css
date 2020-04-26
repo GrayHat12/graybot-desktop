@@ -41,3 +41,15 @@ body {
     position: absolute;
     vertical-align: middle;
 }
+::-webkit-scrollbar {
+    width: 3px;
+}
+::-webkit-scrollbar-track {
+    background: #201825; 
+}
+::-webkit-scrollbar-thumb {
+    background: #333333; 
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #18121C; 
+}
