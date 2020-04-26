@@ -45,12 +45,8 @@ class Chat extends React.Component {
   getSent(message) {
     var list = this.state.chatList;
     list.push(<div className="cover"><div className="sentMes">
-<<<<<<< HEAD
-      <img className="gif-size" src="https://www.w3schools.com/tags/smiley.gif"/>
-=======
       <img src="https://www.w3schools.com/tags/smiley.gif" alt="loading..."/>
       <br/>
->>>>>>> 990a07293170bf4c87a0881822ade73f58d264f7
       {message}
       <br/>
       <a href="https://www.w3schools.com/tags/smiley.gif">Here</a>
