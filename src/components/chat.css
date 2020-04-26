@@ -1,0 +1,50 @@
+.chatParent {
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: inherit;
+    height: inherit;
+    padding: 1rem;
+    padding-top: 0;
+    padding-left: 0;
+    padding-right: 0; 
+    display: list-item;
+}
+.recMes {
+    background-color: #333333;
+    color: white;
+    width: auto;
+    height: auto;
+    display: list-item;
+    margin-top: 10px;
+    margin-left: 10px;
+    padding: 10px;
+    max-width: 50%;
+    border-radius: 10px;
+    word-wrap: normal;
+    font-family: monospace;
+}
+.sentMes {
+    background-color: #A43061;
+    color: white;
+    right: 10px;
+    position: absolute;
+    width: auto;
+    height: auto;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 50%;
+    word-wrap: normal;
+    font-family: monospace;
+}
+.cover {
+    margin-top: 10px;
+    display: list-item;
+}
+.topBar {
+    background-color: #8D79CD;
+    height: auto;
+    width: inherit;
+    display: flex;
+    padding: 10px;
+    position: sticky;
+}
