@@ -27,7 +27,8 @@
     padding: 10px;
     max-width: 50%;
     border-radius: 10px;
-    word-wrap: normal;
+    word-wrap: break-word;
+    white-space: normal;
     font-family: monospace;
 }
 .sentMes {
@@ -37,8 +38,14 @@
     height: auto;
     padding: 10px;
     border-radius: 10px;
+<<<<<<< HEAD
     max-width: 80%;
     word-wrap: normal;
+=======
+    max-width: 50%;
+    word-wrap: break-word;
+    white-space: normal;
+>>>>>>> 990a07293170bf4c87a0881822ade73f58d264f7
     font-family: monospace;
     float: right;
 }
