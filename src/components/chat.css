@@ -106,5 +106,11 @@
 }
 .send-btn-icon{
     height: 30px;
-    width: 30px;
+    width: 30px;}
+.messageImage {
+    max-width: -webkit-fill-available;
+    border-radius: 8px;
+}
+a:-webkit-any-link {
+    color: #87CFF0;
 }

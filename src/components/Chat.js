@@ -1,5 +1,6 @@
 import React from "react";
 import './chat.css';
+import Message from './Message';
 
 class Chat extends React.Component {
   state = {
@@ -7,51 +8,44 @@ class Chat extends React.Component {
   };
   constructor(){
     super();
-    this.getRecieved = this.getRecieved.bind(this);
-    this.getSent = this.getSent.bind(this);
-    this.getRecieved("hello");
-    this.getRecieved("hello");
-    this.getRecieved("hello");
-    this.getSent("hello");
-    this.getSent("hello short");
-    this.getSent("hello longgggggggggggggggggggggggggggggggggz");
-    this.getSent("hello very longzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzQ");
-    this.getSent("hello");
-    this.getRecieved("hello");
-    this.getSent("hello");
-    this.getRecieved("hello");
-    this.getSent("hello");
-    this.getRecieved("hello");
-    this.getSent("hello");
-    this.getSent("hello");
-    this.getRecieved("hello");
-    this.getSent("hello");this.getSent("hello");
-    this.getRecieved("hello");
-    this.getSent("hello");this.getSent("hello");
-    this.getRecieved("hello");
-    this.getSent("hello");this.getSent("hello");
-    this.getRecieved("hello");
-    this.getSent("hello");
+    this.addRecieved = this.addRecieved.bind(this);
+    this.addSent = this.addSent.bind(this);
+    this.sendMessage = this.sendMessage.bind(this);
   }
   componentDidMount() {
+    var mess1 = new Message(true);
+    mess1.setText("Hey dude https://web.whatsapp.com/ check this out\nhttps://web.whatsapp.com/");
+    mess1.setImage("https://user-images.githubusercontent.com/29608698/44212183-101bbe80-a141-11e8-9c4c-dcf3269508e0.png");
+    this.addRecieved(mess1);
+    this.sendMessage("Hey dude https://web.whatsapp.com/ check this out\nhttps://web.whatsapp.com/","https://user-images.githubusercontent.com/29608698/44212183-101bbe80-a141-11e8-9c4c-dcf3269508e0.png");
+    this.addRecieved(mess1);
+    this.sendMessage("Hey dude https://web.whatsapp.com/ check this out\nhttps://web.whatsapp.com/","https://user-images.githubusercontent.com/29608698/44212183-101bbe80-a141-11e8-9c4c-dcf3269508e0.png");
+    this.addRecieved(mess1);
+    this.sendMessage("Hey dude https://web.whatsapp.com/ check this out\nhttps://web.whatsapp.com/","https://user-images.githubusercontent.com/29608698/44212183-101bbe80-a141-11e8-9c4c-dcf3269508e0.png");
   }
-  getRecieved(message) {
+  addRecieved(message = new Message()) {
     var list = this.state.chatList;
-    list.push(<div className="recMes">
-      {message}
+    list.push(<div key={list.length} className="recMes">
+      {message.state.image!=null ? message.state.image : ""}
+      <br/>
+      {message.state.text!=null?message.state.text:""}
     </div>);
     this.setState({ chatList: list });
   }
-  getSent(message) {
+  addSent(message = new Message()) {
     var list = this.state.chatList;
-    list.push(<div className="cover"><div className="sentMes">
-      <img src="https://www.w3schools.com/tags/smiley.gif" alt="loading..."/>
+    list.push(<div key={list.length} className="cover"><div className="sentMes">
+      {message.state.image!=null ? message.state.image : ""}
       <br/>
-      {message}
-      <br/>
-      <a href="https://www.w3schools.com/tags/smiley.gif">Here</a>
+      {message.state.text!=null?message.state.text:""}
     </div></div>);
     this.setState({ chatList: list });
+  }
+  sendMessage(text,url){
+    var message = new Message(false);
+    message.setText(text);
+    message.setImage(url);
+    this.addSent(message);
   }
   render() {
     return(
