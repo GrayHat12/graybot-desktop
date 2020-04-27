@@ -6,6 +6,7 @@ body {
 }
 .chatArea {
     width: 31%;
+    min-width: 237px;
     height: 90%;
     border-radius: 1rem;
     background-color: #201825;

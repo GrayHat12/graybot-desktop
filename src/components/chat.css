@@ -61,7 +61,7 @@
     height: 5%;
 }
 .cam-btn{
-    height: 90%;
+    height: 40px;
     width: 40px;
     margin-top: 4px;
     margin-left: 4px;
@@ -70,15 +70,13 @@
 
 }
 .cam-btn-icon{
-    padding-left: 5px;
-    padding-top: 2px;
-    height: 30px;
-    width: 30px;
+    height: 40px;
+    width: 40px;
 }
 .input-box-send{
     background-color: rgba(100, 100, 100, 100);
-    height: 90%;
-    width: 82%;
+    height: 40px;
+    width: 84%;
     margin-top: 4px;
     margin-left: 4px;
     border-radius: 3em;
@@ -94,19 +92,15 @@
     margin-top: 2px;
 }
 .send-btn{
-    position: relative;
-    height: 90%;
-    width: 14px;
-    margin-top: 4px;
+    height: 40px;
+    width: 40px;
     border-radius: 50%;
     float: right;
-    right: 23px;
-    bottom: 1px;
 
 }
 .send-btn-icon{
-    height: 30px;
-    width: 30px;}
+    margin: 6px;
+    }
 .messageImage {
     max-width: -webkit-fill-available;
     border-radius: 8px;
@@ -114,3 +108,51 @@
 a:-webkit-any-link {
     color: #87CFF0;
 }
+@media only screen and (max-width: 1330px) {
+    .input-box{
+        width: 80%;
+    }
+    .cam-btn-icon{
+        height: 30px;
+        width: 30px;
+    }
+    .cam-btn{
+        margin-top: 7px;
+        height: 30px;
+        width: 30px;
+    }
+} 
+@media only screen and (max-width: 1120px) {
+    .input-box-send{
+        width: 80%;
+    }
+    .input-box{
+        width: 74%;
+    }
+    .cam-btn-icon{
+        height: 30px;
+        width: 30px;
+    }
+    .cam-btn{
+        margin-top: 7px;
+        height: 30px;
+        width: 30px;
+    }
+} 
+@media only screen and (max-width: 910px) {
+    .input-box-send{
+        width: 75%;
+    }
+    .input-box{
+        width: 74%;
+    }
+    .cam-btn-icon{
+        height: 30px;
+        width: 30px;
+    }
+    .cam-btn{
+        margin-top: 7px;
+        height: 30px;
+        width: 30px;
+    }
+} 

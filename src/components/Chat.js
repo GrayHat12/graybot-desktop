@@ -60,13 +60,13 @@ class Chat extends React.Component {
     </div>
     <div className="input-container">
     <div className="cam-btn">
-    <FcCamera/>
+    <FcCamera className="cam-btn-icon"/>
     </div>
       <div className="input-box-send">
       <input type="text" placeholder="Type a message" className="input-box">
       </input>
       <div className="send-btn">
-      <MdSend/>
+      <MdSend size={30} className="send-btn-icon"/>
       </div>
       </div>
     </div>
