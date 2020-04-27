@@ -1,6 +1,8 @@
 import React from "react";
 import './chat.css';
 import Message from './Message';
+import { FcCamera } from "react-icons/fc";
+import { MdSend } from "react-icons/md";
 
 class Chat extends React.Component {
   state = {
@@ -57,11 +59,15 @@ class Chat extends React.Component {
       {this.state.chatList}
     </div>
     <div className="input-container">
-      <div className="cam-btn"><img className="cam-btn-icon" alt="cam" src={require('./assets/cam-btn-icon.png')}></img></div>
+    <div className="cam-btn">
+    <FcCamera/>
+    </div>
       <div className="input-box-send">
       <input type="text" placeholder="Type a message" className="input-box">
       </input>
-      <div className="send-btn"><img className="send-btn-icon" alt="send" src={require('./assets/send-btn-icon.png')}></img></div>
+      <div className="send-btn">
+      <MdSend/>
+      </div>
       </div>
     </div>
     </div>);
