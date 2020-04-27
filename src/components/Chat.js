@@ -45,8 +45,10 @@ class Chat extends React.Component {
   getSent(message) {
     var list = this.state.chatList;
     list.push(<div className="cover"><div className="sentMes">
-      <image src="https://www.w3schools.com/tags/smiley.gif"/>
+      <img src="https://www.w3schools.com/tags/smiley.gif" alt="loading..."/>
+      <br/>
       {message}
+      <br/>
       <a href="https://www.w3schools.com/tags/smiley.gif">Here</a>
     </div></div>);
     this.setState({ chatList: list });
@@ -57,7 +59,10 @@ class Chat extends React.Component {
     <div className="topBar">
       GrayBot
     </div>
-    {this.state.chatList}
+    <div className="chatConv">
+      {this.state.chatList}
+    </div>
+    
     </div>);
   }
 }

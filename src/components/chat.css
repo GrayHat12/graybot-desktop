@@ -1,16 +1,25 @@
 .chatParent {
-    width: inherit;
+    width: auto;
     height: inherit;
     padding: 1rem;
     padding-top: 0;
     padding-left: 0;
     padding-right: 0; 
+}
+.chatConv{
+    overflow-x: hidden;
     display: list-item;
+    height: 100%;
+}
+.gif-size{
+    height: 20px;
+    width: 20px;
+    margin-right: 5px;
 }
 .recMes {
     background-color: #333333;
     color: white;
-    width: auto;
+    width: inherit;
     height: auto;
     display: list-item;
     margin-top: 10px;
@@ -18,31 +27,33 @@
     padding: 10px;
     max-width: 50%;
     border-radius: 10px;
-    word-wrap: normal;
+    word-wrap: break-word;
+    white-space: normal;
     font-family: monospace;
 }
 .sentMes {
     background-color: #A43061;
     color: white;
     right: 10px;
-    position: absolute;
-    width: auto;
     height: auto;
     padding: 10px;
     border-radius: 10px;
     max-width: 50%;
-    word-wrap: normal;
+    word-wrap: break-word;
+    white-space: normal;
     font-family: monospace;
+    float: right;
 }
 .cover {
     margin-top: 10px;
-    display: list-item;
+    overflow: hidden;
 }
 .topBar {
     background-color: #8D79CD;
     height: auto;
-    width: inherit;
+    width: auto;
     display: flex;
     padding: 10px;
+    border-radius: 1em 1em 0 0;
     position: sticky;
 }
