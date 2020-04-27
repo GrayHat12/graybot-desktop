@@ -49,7 +49,7 @@ class Chat extends React.Component {
       <br/>
       {message}
       <br/>
-      <a href="https://www.w3schools.com/tags/smiley.gif">Here</a>
+      <a target="_blank" rel="noopener noreferrer" href="https://www.w3schools.com/tags/smiley.gif">Here</a>
     </div></div>);
     this.setState({ chatList: list });
   }
