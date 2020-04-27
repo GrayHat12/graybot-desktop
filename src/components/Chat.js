@@ -59,7 +59,10 @@ class Chat extends React.Component {
     <div className="topBar">
       GrayBot
     </div>
-    {this.state.chatList}
+    <div className="chatConv">
+      {this.state.chatList}
+    </div>
+    
     </div>);
   }
 }
