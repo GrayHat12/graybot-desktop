@@ -57,3 +57,10 @@
     border-radius: 1em 1em 0 0;
     position: sticky;
 }
+.messageImage {
+    max-width: -webkit-fill-available;
+    border-radius: 8px;
+}
+a:-webkit-any-link {
+    color: #87CFF0;
+}
