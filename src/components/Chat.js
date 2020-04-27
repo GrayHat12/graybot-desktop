@@ -62,7 +62,14 @@ class Chat extends React.Component {
     <div className="chatConv">
       {this.state.chatList}
     </div>
-    
+    <div className="input-container">
+      <div className="cam-btn"><img className="cam-btn-icon" alt="cam" src={require('./assets/cam-btn-icon.png')}></img></div>
+      <div className="input-box-send">
+      <input type="text" placeholder="Type a message" className="input-box">
+      </input>
+      <div className="send-btn"><img className="send-btn-icon" alt="send" src={require('./assets/send-btn-icon.png')}></img></div>
+      </div>
+    </div>
     </div>);
   }
 }
