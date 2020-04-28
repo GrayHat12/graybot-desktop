@@ -59,12 +59,14 @@ body {
     z-index: 100;
     border: none;
     display: flex;
-    background-color: #8D79CD;
+    /*background-color: #8D79CD;*/
+    background-color: #001628;
     opacity: 95%;
 }
 .frameContent {
     position: relative;
     margin: auto;
+    display: grid;
 }
 .frameTitle {
     font-family: cursive;
@@ -79,4 +81,27 @@ body {
     border-top: none;
     border-right: none;
     border-left: none;
+}
+.iframeSubmit {
+    width: -webkit-fill-available;
+    height: auto;
+    border: none;
+    margin-top: 20px;
+    font-size: x-large;
+    letter-spacing: 8px;
+    font-family: sans-serif;
+    background: -webkit-linear-gradient(#FE8801 , #EA405A);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.iframeSubmit:hover {
+    background-color: #333333;
+    border: 1px solid #F27009;
+    border-radius: 24px;
+}
+.iframeSubmit:focus {
+    outline: none;
+}
+.username:focus {
+    outline: none;
 }
