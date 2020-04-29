@@ -12,6 +12,7 @@ class Chat extends React.Component {
     chatList: [],
     messageText: '',
     totcon: '',
+    openimg: '',
     imageUrl: '',
     key: ''
   };
@@ -135,6 +136,15 @@ class Chat extends React.Component {
   render() {
     return(
     <div className="chatParent">
+    {this.state.openimg.length>0?
+      <div className="imageView">
+    <div className="imparent">
+    <object className="altimg main" src={this.state.openimg}>
+    <img className="altimg" alt="loader" src={require('../assets/Ring-Loading.gif')} />
+    </object>
+    </div>
+    </div>:
+    ''}
     <div className="topBar">
       <div>GrayBot</div>
       <div className="connections"><GoPrimitiveDot className="onlineIcon"/>{this.state.totcon.replace(/"/g,'')}</div>
