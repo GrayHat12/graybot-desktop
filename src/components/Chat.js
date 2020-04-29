@@ -56,11 +56,11 @@ class Chat extends React.Component {
   addRecieved(message = new Message()) {
     var list = this.state.chatList;
     list.push(<div key={list.length} className="recMes">
-      <span className="author">{message.state.author}</span>
-      <div className="recMesChild">
-      {message.state.image!=null && message.state.image.length>0 ? message.state.image : ""}
+      <span className="author" dangerouslySetInnerHTML={message.state.author}></span>
+      <div className="recMesChild" dangerouslySetInnerHTML={message.state.image!=null && message.state.image.length>0 ? message.state.image : ""}>
+      
       <br/>
-      {message.state.text!=null?message.state.text:""}
+      <div dangerouslySetInnerHTML={message.state.text!=null?message.state.text:""}/>
       </div>
     </div>);
     this.setState({ chatList: list });
