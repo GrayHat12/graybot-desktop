@@ -75,8 +75,12 @@ body {
 .username {
     width: -webkit-fill-available;
     height: 40px;
-    color: white;
     background: transparent;
+    text-align: center;
+    font-size: large;
+    color: aqua;
+    letter-spacing: 3px;
+    font-family: cursive;
     border-color: #F27009;
     border-top: none;
     border-right: none;

@@ -3,51 +3,141 @@ import './chat.css';
 import Message from './Message';
 import { FcCamera } from "react-icons/fc";
 import { MdSend } from "react-icons/md";
+import axios from 'axios';
+import request from 'request';
+import reactElementToJSXString from 'react-element-to-jsx-string';
 
 class Chat extends React.Component {
   state = {
     chatList: [],
+    messageText: '',
+    imageUrl: '',
+    key: ''
   };
+  source;
   constructor(){
     super();
     this.addRecieved = this.addRecieved.bind(this);
     this.addSent = this.addSent.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
+    this.sendMessageClicked = this.sendMessageClicked.bind(this);
+    this.messageRecievedEvent = this.messageRecievedEvent.bind(this);
+    this.keyRecievedEvent = this.keyRecievedEvent.bind(this);
+    this.broadcastMessage = this.broadcastMessage.bind(this);
+    this.sendMessageClicked = this.sendMessageClicked.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.onKeyUp = this.onKeyUp.bind(this);
   }
   componentDidMount() {
-    var mess1 = new Message(true);
+    this.source = new EventSource('http://ec2-13-235-246-42.ap-south-1.compute.amazonaws.com:3000/events');
+    this.source.addEventListener('mr',this.messageRecievedEvent);
+    this.source.addEventListener('key',this.keyRecievedEvent);
+    var mess1 = new Message('user1',true);
     mess1.setText("Hey dude https://web.whatsapp.com/ check this out\nhttps://web.whatsapp.com/");
     mess1.setImage("https://user-images.githubusercontent.com/29608698/44212183-101bbe80-a141-11e8-9c4c-dcf3269508e0.png");
     this.addRecieved(mess1);
-    this.sendMessage("Hey dude https://web.whatsapp.com/ check this out\nhttps://web.whatsapp.com/","https://user-images.githubusercontent.com/29608698/44212183-101bbe80-a141-11e8-9c4c-dcf3269508e0.png");
-    this.addRecieved(mess1);
-    this.sendMessage("Hey dude https://web.whatsapp.com/ check this out\nhttps://web.whatsapp.com/","https://user-images.githubusercontent.com/29608698/44212183-101bbe80-a141-11e8-9c4c-dcf3269508e0.png");
-    this.addRecieved(mess1);
-    this.sendMessage("Hey dude https://web.whatsapp.com/ check this out\nhttps://web.whatsapp.com/","https://user-images.githubusercontent.com/29608698/44212183-101bbe80-a141-11e8-9c4c-dcf3269508e0.png");
+    //this.sendMessage("Hey dude https://web.whatsapp.com/ check this out\nhttps://web.whatsapp.com/","https://user-images.githubusercontent.com/29608698/44212183-101bbe80-a141-11e8-9c4c-dcf3269508e0.png");
+    //this.addRecieved(mess1);
+    //this.sendMessage("Hey dude https://web.whatsapp.com/ check this out\nhttps://web.whatsapp.com/","https://user-images.githubusercontent.com/29608698/44212183-101bbe80-a141-11e8-9c4c-dcf3269508e0.png");
+    //this.addRecieved(mess1);
+    //this.sendMessage("Hey dude https://web.whatsapp.com/ check this out\nhttps://web.whatsapp.com/","https://user-images.githubusercontent.com/29608698/44212183-101bbe80-a141-11e8-9c4c-dcf3269508e0.png");
+  }
+  messageRecievedEvent(e){
+    var data = JSON.parse(e.data);
+    var message = new Message(data['author']+'#'+data['key'],true);
+    message.state.image = data['image'];
+    message.state.text = data['text'];
+    this.addRecieved(message);
+  }
+  keyRecievedEvent(e){
+    this.setState({
+      key: e.data
+    });
   }
   addRecieved(message = new Message()) {
     var list = this.state.chatList;
     list.push(<div key={list.length} className="recMes">
+      <span className="author">{message.state.author}</span>
+      <div className="recMesChild">
       {message.state.image!=null ? message.state.image : ""}
       <br/>
       {message.state.text!=null?message.state.text:""}
+      </div>
     </div>);
     this.setState({ chatList: list });
   }
   addSent(message = new Message()) {
     var list = this.state.chatList;
     list.push(<div key={list.length} className="cover"><div className="sentMes">
-      {message.state.image!=null ? message.state.image : ""}
+      {message.state.image!=null && message.state.image.length > 0 ? message.state.image : ""}
       <br/>
       {message.state.text!=null?message.state.text:""}
     </div></div>);
     this.setState({ chatList: list });
   }
-  sendMessage(text,url){
-    var message = new Message(false);
+  sendMessage(){
+    var text = this.state.messageText;
+    var url = this.state.imageUrl;
+    var message = new Message(localStorage.getItem('gusername'),false);
     message.setText(text);
     message.setImage(url);
     this.addSent(message);
+    this.broadcastMessage(message);
+    this.setState({
+      imageUrl : '',
+      messageText : ''
+    });
+  }
+  broadcastMessage(message = new Message()){
+    var data = {};
+    data['author'] = message.state.author;
+    data['text'] = reactElementToJSXString(message.state.text);
+    data['image'] = ''+message.state.image;
+    data['key'] = this.state.key;
+    var sendata = JSON.stringify(data);
+    console.log(sendata);
+    var options = {
+      'method': 'GET',
+      'url': 'http://ec2-13-235-246-42.ap-south-1.compute.amazonaws.com:3000/message',
+      'headers': {
+        'Content-Type': 'text/plain'
+      },
+      body: sendata
+    };
+    request(options, function (error, response) { 
+      if (error) throw new Error(error);
+      console.log(response.body);
+    });
+    /*axios({
+      method : 'GET',
+      headers : {
+        'Content-Type': 'text/plain'
+      },
+      url : 'http://ec2-13-235-246-42.ap-south-1.compute.amazonaws.com:3000/message',
+      data : ''+sendata,
+    }).then((res)=>{
+      console.log(res);
+    }).catch((err)=>{
+      console.error(err);
+    });*/
+    //axios.get('http://ec2-13-235-246-42.ap-south-1.compute.amazonaws.com:3000/message',sendata,{headers : {'Content-Type': 'text/plain'},method: 'GET'}).then(console.log).catch(console.error);
+  }
+  sendMessageClicked(event){
+    event.preventDefault();
+  }
+  onChange(event){
+    this.setState({
+      messageText : event.target.value
+    })
+    event.preventDefault();
+  }
+  onKeyUp(event){
+    if(event.key==="Enter"){
+      this.sendMessage();
+    }else{
+      this.onChange(event);
+    }
+    event.preventDefault();
   }
   render() {
     return(
@@ -59,15 +149,15 @@ class Chat extends React.Component {
       {this.state.chatList}
     </div>
     <div className="input-container">
-    <div className="cam-btn">
+    <button className="cam-btn">
     <FcCamera className="cam-btn-icon"/>
-    </div>
+    </button>
       <div className="input-box-send">
-      <input type="text" placeholder="Type a message" className="input-box">
+      <input type="text" maxLength="50" value={this.state.messageText} onChange={this.onChange} onKeyUp={this.onKeyUp} placeholder="Type a message" className="input-box">
       </input>
-      <div className="send-btn">
+      <button className="send-btn" onClick={this.sendMessageClicked}>
       <MdSend size={30} className="send-btn-icon"/>
-      </div>
+      </button>
       </div>
     </div>
     </div>);

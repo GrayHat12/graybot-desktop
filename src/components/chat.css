@@ -1,158 +1,203 @@
 .chatParent {
-    width: auto;
-    height: inherit;
-    padding: 1rem;
-    padding-top: 0;
-    padding-left: 0;
-    padding-right: 0; 
+  width: auto;
+  height: inherit;
+  padding: 1rem;
+  padding-top: 0;
+  padding-left: 0;
+  padding-right: 0;
 }
-.chatConv{
-    overflow-x: hidden;
-    display: list-item;
-    height: 100%;
+.chatConv {
+  overflow-x: hidden;
+  display: list-item;
+  height: 100%;
 }
-.gif-size{
-    height: 20px;
-    width: 20px;
-    margin-right: 5px;
+.gif-size {
+  height: 20px;
+  width: 20px;
+  margin-right: 5px;
 }
 .recMes {
-    background-color: #333333;
-    color: white;
-    width: inherit;
-    height: auto;
-    display: list-item;
-    margin-top: 10px;
-    margin-left: 10px;
-    padding: 10px;
-    max-width: 50%;
-    border-radius: 10px;
-    word-wrap: break-word;
-    white-space: normal;
-    font-family: monospace;
+  background-color: #333333;
+  color: white;
+  width: inherit;
+  height: auto;
+  display: list-item;
+  margin-top: 5px;
+  margin-left: 5px;
+  /*padding: 10px;*/
+  max-width: 50%;
+  border-radius: 10px;
+  word-wrap: break-word;
+  white-space: normal;
+  font-family: monospace;
 }
 .sentMes {
-    background-color: #A43061;
-    color: white;
-    right: 10px;
-    height: auto;
-    padding: 10px;
-    border-radius: 10px;
-    max-width: 50%;
-    word-wrap: break-word;
-    white-space: normal;
-    font-family: monospace;
-    float: right;
+  background-color: #a43061;
+  color: white;
+  right: 10px;
+  height: auto;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 50%;
+  word-wrap: break-word;
+  white-space: normal;
+  font-family: monospace;
+  float: right;
 }
 .cover {
-    margin-top: 10px;
-    overflow: hidden;
+  margin-top: 10px;
+  overflow: hidden;
 }
 .topBar {
-    background-color: #8D79CD;
-    height: auto;
-    width: auto;
-    display: flex;
-    padding: 10px;
-    border-radius: 1em 1em 0 0;
-    position: sticky;
+  background-color: #8d79cd;
+  height: auto;
+  width: auto;
+  display: flex;
+  padding: 10px;
+  border-radius: 1em 1em 0 0;
+  position: sticky;
 }
-.input-container{
-    height: 5%;
+.input-container {
+  height: 5%;
 }
-.cam-btn{
-    height: 40px;
-    width: 40px;
-    margin-top: 4px;
-    margin-left: 4px;
-    border-radius: 50%;
-    float: left;
-
+.cam-btn {
+  height: 40px;
+  width: 40px;
+  margin-top: 4px;
+  margin-left: 4px;
+  border-radius: 50%;
+  float: left;
 }
-.cam-btn-icon{
-    height: 40px;
-    width: 40px;
+.cam-btn-icon {
+  height: 40px;
+  width: 40px;
 }
-.input-box-send{
-    background-color: rgba(100, 100, 100, 100);
-    height: 40px;
-    width: 84%;
-    margin-top: 4px;
-    margin-left: 4px;
-    border-radius: 3em;
-    float: left;
-    padding-left: 12px;
+.input-box-send {
+  background-color: rgba(100, 100, 100, 100);
+  height: 40px;
+  width: 84%;
+  margin-top: 4px;
+  margin-left: 4px;
+  border-radius: 3em;
+  float: left;
+  padding-left: 12px;
 }
-.input-box{
-    background-color: rgba(0, 0, 0, 0);
-    border: none;
-    width: 86%;
-    font-size: 18px;
-    height: 80%;
-    margin-top: 2px;
+.input-box {
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  width: 86%;
+  font-size: 18px;
+  height: 80%;
+  color: white;
+  margin-top: 2px;
 }
-.send-btn{
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    float: right;
-
+.input-box:focus {
+  outline: none;
 }
-.send-btn-icon{
-    margin: 6px;
-    }
+.send-btn {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  float: right;
+  color: white;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  padding: 0px;
+}
+.send-btn:hover{
+    color: #A43061;
+}
+.send-btn-icon {
+  margin: 6px;
+}
 .messageImage {
-    max-width: -webkit-fill-available;
-    border-radius: 8px;
+  max-width: -webkit-fill-available;
+  border-radius: 8px;
 }
 a:-webkit-any-link {
-    color: #87CFF0;
+  color: #87cff0;
 }
 @media only screen and (max-width: 1330px) {
-    .input-box{
-        width: 80%;
-    }
-    .cam-btn-icon{
-        height: 30px;
-        width: 30px;
-    }
-    .cam-btn{
-        margin-top: 7px;
-        height: 30px;
-        width: 30px;
-    }
-} 
+  .input-box {
+    width: 80%;
+  }
+  .cam-btn-icon {
+    height: 30px;
+    width: 30px;
+  }
+  .cam-btn {
+    margin-top: 7px;
+    height: 30px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    padding: 0px;
+    width: 30px;
+  }
+  .cam-btn-icon:hover {
+    -webkit-box-shadow: 1px 1px 2px 2px #333333; /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+    -moz-box-shadow: 1px 1px 2px 2px #333333; /* Firefox 3.5 - 3.6 */
+    box-shadow: 1px 1px 2px 2px #333333;
+  }
+}
 @media only screen and (max-width: 1120px) {
-    .input-box-send{
-        width: 80%;
-    }
-    .input-box{
-        width: 74%;
-    }
-    .cam-btn-icon{
-        height: 30px;
-        width: 30px;
-    }
-    .cam-btn{
-        margin-top: 7px;
-        height: 30px;
-        width: 30px;
-    }
-} 
+  .input-box-send {
+    width: 80%;
+  }
+  .input-box {
+    width: 74%;
+  }
+  .cam-btn-icon {
+    height: 30px;
+    width: 30px;
+  }
+  .cam-btn {
+    margin-top: 7px;
+    height: 30px;
+    width: 30px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    padding: 0px;
+  }
+  .cam-btn-icon:hover {
+    -webkit-box-shadow: 1px 1px 2px 2px #333333; /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+    -moz-box-shadow: 1px 1px 2px 2px #333333; /* Firefox 3.5 - 3.6 */
+    box-shadow: 1px 1px 2px 2px #333333;
+  }
+}
 @media only screen and (max-width: 910px) {
-    .input-box-send{
-        width: 75%;
-    }
-    .input-box{
-        width: 74%;
-    }
-    .cam-btn-icon{
-        height: 30px;
-        width: 30px;
-    }
-    .cam-btn{
-        margin-top: 7px;
-        height: 30px;
-        width: 30px;
-    }
-} 
+  .input-box-send {
+    width: 75%;
+  }
+  .input-box {
+    width: 74%;
+  }
+  .cam-btn-icon {
+    height: 30px;
+    width: 30px;
+  }
+  .cam-btn {
+    margin-top: 7px;
+    height: 30px;
+    width: 30px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    padding: 0px;
+  }
+  .cam-btn-icon:hover {
+    -webkit-box-shadow: 1px 1px 2px 2px #333333; /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+    -moz-box-shadow: 1px 1px 2px 2px #333333; /* Firefox 3.5 - 3.6 */
+    box-shadow: 1px 1px 2px 2px #333333;
+  }
+}
+.author {
+  color: aquamarine;
+  margin-left: 2%;
+}
+.recMesChild {
+  padding: 5px;
+  max-width: fit-content;
+}

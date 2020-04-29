@@ -44,7 +44,7 @@ class App extends React.Component {
     this.setState({
       uinput : event.target.value
     });
-    console.log(this.state);
+    //console.log(this.state);
     event.preventDefault();
   }
   render(){
@@ -53,7 +53,7 @@ class App extends React.Component {
         {this.state.username.length===0?<div className="infoframe">
         <div className="frameContent">
         <h1 className="frameTitle">USERNAME</h1>
-        <input className="username" onKeyUp={this.onKeyDown} value={this.state.uinput} onChange={this.onChange}/>
+        <input maxLength="8" className="username" onKeyUp={this.onKeyDown} value={this.state.uinput} onChange={this.onChange}/>
         <button className="iframeSubmit" onClick={this.changeUsername}>CONTINUE</button>
         </div>
         </div>:""}

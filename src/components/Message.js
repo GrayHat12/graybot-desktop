@@ -5,10 +5,12 @@ export default class Message {
   state = {
     incoming: false,
     text: null,
-    image: null
+    image: null,
+    author: null
   };
-  constructor(incoming) {
+  constructor(author,incoming) {
     this.state.incoming = incoming;
+    this.state.author = author;
     this.setImage = this.setImage.bind(this);
     this.getUrl = this.getUrl.bind(this);
     this.parseText = this.parseText.bind(this);
