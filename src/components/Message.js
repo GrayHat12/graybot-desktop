@@ -5,7 +5,7 @@ export default class Message {
   state = {
     incoming: false,
     text: null,
-    image: '',
+    image: null,
     author: null
   };
   constructor(author,incoming) {
@@ -20,13 +20,16 @@ export default class Message {
       this.state.text = this.parseText(text);
   }
   getUrl(url,key) {
-      return(<a key={key} target="_blank" rel="noopener noreferrer" href={url}>{url}</a>);
+      if(!this.state.incoming)return(<a key={key} target="_blank" rel="noopener noreferrer" href={url}>{url}</a>);
+      else return(<a target="_blank" rel="noopener noreferrer" href={url}>{url}</a>);
   }
   parseText(text="") {
     var children = [];
     let m;
     while((m=regex.exec(text))!=null){
-        var txt = <span key={children.length}>{text.substring(0,m.index)}</span>;
+        var txt;
+        if(!this.state.incoming)txt = <span key={children.length}>{text.substring(0,m.index)}</span>;
+        else txt = <span >{text.substring(0,m.index)}</span>;
         children.push(txt);
         if(m[0]){
             var url = this.getUrl(m[0],children.length);
@@ -36,12 +39,18 @@ export default class Message {
         regex.lastIndex = 0;
     }
     if(text.length>0){
-        var txtt = <span key={children.length}>{text}</span>;
+        var txtt;
+        if(!this.state.incoming)txtt = <span key={children.length}>{text}</span>;
+        else txtt = <span>{text}</span>;
         children.push(txtt);
     }
     return <>{children}</>;
   }
   setImage(url){
-      this.state.image = <img className="messageImage" src={url} alt="loading..."/>
+      if(!this.state.incoming){
+        this.state.image = <img className="messageImage" src={url} alt="loading..."/>
+      }else{
+        this.state.image = <img class="messageImage" src={url} alt="loading..."/>
+      }
   }
 }

@@ -26,6 +26,7 @@ class Chat extends React.Component {
     this.sendMessageClicked = this.sendMessageClicked.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onKeyUp = this.onKeyUp.bind(this);
+    this.getRecieved = this.getRecieved.bind(this);
   }
   componentDidMount() {
     this.source = new EventSource('http://ec2-13-235-246-42.ap-south-1.compute.amazonaws.com:3000/events');
@@ -34,18 +35,12 @@ class Chat extends React.Component {
     var mess1 = new Message('user1',true);
     mess1.setText("Hey dude https://web.whatsapp.com/ check this out\nhttps://web.whatsapp.com/");
     mess1.setImage("https://user-images.githubusercontent.com/29608698/44212183-101bbe80-a141-11e8-9c4c-dcf3269508e0.png");
-    this.addRecieved(mess1);
-    //this.sendMessage("Hey dude https://web.whatsapp.com/ check this out\nhttps://web.whatsapp.com/","https://user-images.githubusercontent.com/29608698/44212183-101bbe80-a141-11e8-9c4c-dcf3269508e0.png");
-    //this.addRecieved(mess1);
-    //this.sendMessage("Hey dude https://web.whatsapp.com/ check this out\nhttps://web.whatsapp.com/","https://user-images.githubusercontent.com/29608698/44212183-101bbe80-a141-11e8-9c4c-dcf3269508e0.png");
-    //this.addRecieved(mess1);
-    //this.sendMessage("Hey dude https://web.whatsapp.com/ check this out\nhttps://web.whatsapp.com/","https://user-images.githubusercontent.com/29608698/44212183-101bbe80-a141-11e8-9c4c-dcf3269508e0.png");
+    console.log(reactElementToJSXString(this.getRecieved(mess1)));
+    this.addRecieved(reactElementToJSXString(this.getRecieved(mess1)));
   }
   messageRecievedEvent(e){
     var data = JSON.parse(e.data);
-    var message = new Message(data['author']+'#'+data['key'],true);
-    message.state.image = data['image'];
-    message.state.text = data['text'];
+    var message = data['html'];
     this.addRecieved(message);
   }
   keyRecievedEvent(e){
@@ -53,17 +48,20 @@ class Chat extends React.Component {
       key: e.data
     });
   }
-  addRecieved(message = new Message()) {
+  addRecieved(message) {
     var list = this.state.chatList;
-    list.push(<div key={list.length} className="recMes">
-      <span className="author" dangerouslySetInnerHTML={message.state.author}></span>
-      <div className="recMesChild" dangerouslySetInnerHTML={message.state.image!=null && message.state.image.length>0 ? message.state.image : ""}>
-      
-      <br/>
-      <div dangerouslySetInnerHTML={message.state.text!=null?message.state.text:""}/>
-      </div>
-    </div>);
+    list.push(<div key={list.length} className="recMes" dangerouslySetInnerHTML={{__html : message}}/>);
     this.setState({ chatList: list });
+  }
+  getRecieved(message = new Message()){
+    return<div>
+    <span class="author">{message.state.author}</span>
+    <div class="recMesChild">
+    {message.state.image!=null ? message.state.image : ""}
+    <br/>
+    {message.state.text!=null?message.state.text:""}
+    </div>
+  </div>;
   }
   addSent(message = new Message()) {
     var list = this.state.chatList;
@@ -90,9 +88,7 @@ class Chat extends React.Component {
   }
   broadcastMessage(message = new Message()){
     var data = {};
-    data['author'] = message.state.author;
-    data['text'] = reactElementToJSXString(message.state.text).replace(/\n/g,' ');
-    data['image'] = typeof(message.state.image)=='string'?message.state.image:reactElementToJSXString(message.state.image).replace(/\n/g,' ');
+    data['html'] = reactElementToJSXString(this.getRecieved(message));
     data['key'] = this.state.key.replace(/"/g,'');
     var sendata = JSON.stringify(data);
     console.log(sendata);
@@ -141,7 +137,7 @@ class Chat extends React.Component {
     <FcCamera className="cam-btn-icon"/>
     </button>
       <div className="input-box-send">
-      <input type="text" maxLength="50" value={this.state.messageText} onChange={this.onChange} onKeyUp={this.onKeyUp} placeholder="Type a message" className="input-box">
+      <input type="text" maxLength="100" value={this.state.messageText} onChange={this.onChange} onKeyUp={this.onKeyUp} placeholder="Type a message" className="input-box">
       </input>
       <button className="send-btn" onClick={this.sendMessageClicked}>
       <MdSend size={30} className="send-btn-icon"/>
