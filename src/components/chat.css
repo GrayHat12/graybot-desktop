@@ -201,3 +201,14 @@ a:-webkit-any-link {
   padding: 5px;
   max-width: fit-content;
 }
+.connections {
+  width: -webkit-fill-available;
+  text-align: end;
+  color: #FFFFFF;
+}
+.onlineIcon {
+  color: rgb(173, 219, 103);
+  vertical-align: text-bottom;
+  width: auto;
+  height: auto;
+}

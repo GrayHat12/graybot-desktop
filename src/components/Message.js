@@ -6,7 +6,7 @@ export default class Message {
     incoming: false,
     text: null,
     image: null,
-    author: null
+    author: ''
   };
   constructor(author,incoming) {
     this.state.incoming = incoming;

@@ -5,11 +5,13 @@ import { FcCamera } from "react-icons/fc";
 import { MdSend } from "react-icons/md";
 import axios from 'axios';
 import reactElementToJSXString from 'react-element-to-jsx-string';
+import {GoPrimitiveDot} from 'react-icons/go';
 
 class Chat extends React.Component {
   state = {
     chatList: [],
     messageText: '',
+    totcon: '',
     imageUrl: '',
     key: ''
   };
@@ -27,16 +29,23 @@ class Chat extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.onKeyUp = this.onKeyUp.bind(this);
     this.getRecieved = this.getRecieved.bind(this);
+    this.connectionsUpdate = this.connectionsUpdate.bind(this);
   }
   componentDidMount() {
     this.source = new EventSource('http://ec2-13-235-246-42.ap-south-1.compute.amazonaws.com:3000/events');
     this.source.addEventListener('mr',this.messageRecievedEvent);
     this.source.addEventListener('key',this.keyRecievedEvent);
+    this.source.addEventListener('up',this.connectionsUpdate);
     var mess1 = new Message('user1',true);
     mess1.setText("Hey dude https://web.whatsapp.com/ check this out\nhttps://web.whatsapp.com/");
     mess1.setImage("https://user-images.githubusercontent.com/29608698/44212183-101bbe80-a141-11e8-9c4c-dcf3269508e0.png");
     console.log(reactElementToJSXString(this.getRecieved(mess1)));
     this.addRecieved(reactElementToJSXString(this.getRecieved(mess1)));
+  }
+  connectionsUpdate(e){
+    this.setState({
+      totcon: e.data
+    });
   }
   messageRecievedEvent(e){
     var data = JSON.parse(e.data);
@@ -55,7 +64,7 @@ class Chat extends React.Component {
   }
   getRecieved(message = new Message()){
     return<div>
-    <span class="author">{message.state.author}</span>
+    <span class="author">{message.state.author+`#${this.state.key.replace(/"/g,'')}`}</span>
     <div class="recMesChild">
     {message.state.image!=null ? message.state.image : ""}
     <br/>
@@ -127,7 +136,8 @@ class Chat extends React.Component {
     return(
     <div className="chatParent">
     <div className="topBar">
-      GrayBot
+      <div>GrayBot</div>
+      <div className="connections"><GoPrimitiveDot className="onlineIcon"/>{this.state.totcon.replace(/"/g,'')}</div>
     </div>
     <div className="chatConv">
       {this.state.chatList}
