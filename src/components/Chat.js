@@ -4,7 +4,6 @@ import Message from './Message';
 import { FcCamera } from "react-icons/fc";
 import { MdSend } from "react-icons/md";
 import axios from 'axios';
-import request from 'request';
 import reactElementToJSXString from 'react-element-to-jsx-string';
 
 class Chat extends React.Component {
@@ -59,7 +58,7 @@ class Chat extends React.Component {
     list.push(<div key={list.length} className="recMes">
       <span className="author">{message.state.author}</span>
       <div className="recMesChild">
-      {message.state.image!=null ? message.state.image : ""}
+      {message.state.image!=null && message.state.image.length>0 ? message.state.image : ""}
       <br/>
       {message.state.text!=null?message.state.text:""}
       </div>
@@ -80,7 +79,8 @@ class Chat extends React.Component {
     var url = this.state.imageUrl;
     var message = new Message(localStorage.getItem('gusername'),false);
     message.setText(text);
-    message.setImage(url);
+    if(this.state.imageUrl.length>0)
+      message.setImage(url);
     this.addSent(message);
     this.broadcastMessage(message);
     this.setState({
@@ -91,25 +91,13 @@ class Chat extends React.Component {
   broadcastMessage(message = new Message()){
     var data = {};
     data['author'] = message.state.author;
-    data['text'] = reactElementToJSXString(message.state.text);
-    data['image'] = ''+message.state.image;
-    data['key'] = this.state.key;
+    data['text'] = reactElementToJSXString(message.state.text).replace(/\n/g,' ');
+    data['image'] = typeof(message.state.image)=='string'?message.state.image:reactElementToJSXString(message.state.image).replace(/\n/g,' ');
+    data['key'] = this.state.key.replace(/"/g,'');
     var sendata = JSON.stringify(data);
     console.log(sendata);
-    var options = {
-      'method': 'GET',
-      'url': 'http://ec2-13-235-246-42.ap-south-1.compute.amazonaws.com:3000/message',
-      'headers': {
-        'Content-Type': 'text/plain'
-      },
-      body: sendata
-    };
-    request(options, function (error, response) { 
-      if (error) throw new Error(error);
-      console.log(response.body);
-    });
-    /*axios({
-      method : 'GET',
+    axios({
+      method : 'POST',
       headers : {
         'Content-Type': 'text/plain'
       },
@@ -119,10 +107,10 @@ class Chat extends React.Component {
       console.log(res);
     }).catch((err)=>{
       console.error(err);
-    });*/
-    //axios.get('http://ec2-13-235-246-42.ap-south-1.compute.amazonaws.com:3000/message',sendata,{headers : {'Content-Type': 'text/plain'},method: 'GET'}).then(console.log).catch(console.error);
+    });
   }
   sendMessageClicked(event){
+    this.sendMessage();
     event.preventDefault();
   }
   onChange(event){

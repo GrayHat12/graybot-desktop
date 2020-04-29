@@ -5,7 +5,7 @@ export default class Message {
   state = {
     incoming: false,
     text: null,
-    image: null,
+    image: '',
     author: null
   };
   constructor(author,incoming) {
