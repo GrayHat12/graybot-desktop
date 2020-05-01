@@ -14,6 +14,12 @@
     <title>GrayBot-Desktop</title>
   </head>
   <body>
+    <script>
+      function show(event) {
+        document.getElementsByClassName("imageView")[0].style.display = "block";
+        document.getElementsByClassName("altimg main")[0].setAttribute("src",event.src);
+      }
+    </script>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
   </body>

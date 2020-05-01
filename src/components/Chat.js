@@ -6,6 +6,7 @@ import { MdSend } from "react-icons/md";
 import axios from 'axios';
 import reactElementToJSXString from 'react-element-to-jsx-string';
 import {GoPrimitiveDot} from 'react-icons/go';
+import { AiOutlineCloseCircle } from "react-icons/ai";
 
 class Chat extends React.Component {
   state = {
@@ -16,6 +17,7 @@ class Chat extends React.Component {
     imageUrl: '',
     key: ''
   };
+  imageinputRef = React.createRef();
   source;
   constructor(){
     super();
@@ -31,6 +33,9 @@ class Chat extends React.Component {
     this.onKeyUp = this.onKeyUp.bind(this);
     this.getRecieved = this.getRecieved.bind(this);
     this.connectionsUpdate = this.connectionsUpdate.bind(this);
+    this.hide = this.hide.bind(this);
+    this.cambuttonClicked = this.cambuttonClicked.bind(this);
+    this.imageChanged = this.imageChanged.bind(this);
   }
   componentDidMount() {
     this.source = new EventSource('http://ec2-13-235-246-42.ap-south-1.compute.amazonaws.com:3000/events');
@@ -40,7 +45,7 @@ class Chat extends React.Component {
     var mess1 = new Message('user1',true);
     mess1.setText("Hey dude https://web.whatsapp.com/ check this out\nhttps://web.whatsapp.com/");
     mess1.setImage("https://user-images.githubusercontent.com/29608698/44212183-101bbe80-a141-11e8-9c4c-dcf3269508e0.png");
-    console.log(reactElementToJSXString(this.getRecieved(mess1)));
+    //console.log(reactElementToJSXString(this.getRecieved(mess1)));
     this.addRecieved(reactElementToJSXString(this.getRecieved(mess1)));
   }
   connectionsUpdate(e){
@@ -133,18 +138,32 @@ class Chat extends React.Component {
     }
     event.preventDefault();
   }
+  cambuttonClicked(event){
+    this.imageinputRef.current.click();
+    console.log('here');
+    event.preventDefault();
+  }
+  hide(event){
+    document.getElementsByClassName("imageView")[0].style.display = "none";
+    document.getElementsByClassName("altimg main")[0].removeAttribute("src");
+    event.preventDefault();
+  }
+  imageChanged(event){
+    this.setState({
+      imageUrl : event.target.value
+    });
+    event.preventDefault();
+  }
   render() {
     return(
     <div className="chatParent">
-    {this.state.openimg.length>0?
-      <div className="imageView">
+    <div className="imageView">
     <div className="imparent">
-    <object className="altimg main" src={this.state.openimg}>
+    <AiOutlineCloseCircle className="close img button" onClick={this.hide}/>
+    <img className="altimg main" alt="previewImage" />
     <img className="altimg" alt="loader" src={require('../assets/Ring-Loading.gif')} />
-    </object>
     </div>
-    </div>:
-    ''}
+    </div>
     <div className="topBar">
       <div>GrayBot</div>
       <div className="connections"><GoPrimitiveDot className="onlineIcon"/>{this.state.totcon.replace(/"/g,'')}</div>
@@ -153,7 +172,8 @@ class Chat extends React.Component {
       {this.state.chatList}
     </div>
     <div className="input-container">
-    <button className="cam-btn">
+    <input onChange={this.imageChanged} type="file" accept="image/png, image/jpeg" className="hiddenInput" ref={this.imageinputRef}/>
+    <button className="cam-btn" onClick={this.cambuttonClicked}>
     <FcCamera className="cam-btn-icon"/>
     </button>
       <div className="input-box-send">

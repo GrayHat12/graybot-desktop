@@ -243,6 +243,9 @@ a:-webkit-any-link {
   background-color: #201825;
   opacity: 90%;
 }
+.imageView {
+  display: none;
+}
 .altimg {
   width: 330px;
   height: 220px;
@@ -258,4 +261,18 @@ a:-webkit-any-link {
 .altimg.main {
   width: auto;
   height: auto;
+  background-color: currentcolor;
+  max-width: 500px;
+  position: absolute;
+  max-height: 500px;
+}
+.close.img.button {
+  position: absolute;
+  z-index: 20;
+  right: auto;
+  top: 0;
+  left: auto;
+}
+.hiddenInput {
+  display: none;
 }

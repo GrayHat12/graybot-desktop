@@ -21,7 +21,7 @@ export default class Message {
   }
   getUrl(url,key) {
       if(!this.state.incoming)return(<a key={key} target="_blank" rel="noopener noreferrer" href={url}>{url}</a>);
-      else return(<a target="_blank" rel="noopener noreferrer" href={url}>{url}</a>);
+      else return(<a key={key} target="_blank" rel="noopener noreferrer" href={url}>{url}</a>);
   }
   parseText(text="") {
     var children = [];
@@ -29,7 +29,7 @@ export default class Message {
     while((m=regex.exec(text))!=null){
         var txt;
         if(!this.state.incoming)txt = <span key={children.length}>{text.substring(0,m.index)}</span>;
-        else txt = <span >{text.substring(0,m.index)}</span>;
+        else txt = <span key={children.length}>{text.substring(0,m.index)}</span>;
         children.push(txt);
         if(m[0]){
             var url = this.getUrl(m[0],children.length);
@@ -48,9 +48,9 @@ export default class Message {
   }
   setImage(url){
       if(!this.state.incoming){
-        this.state.image = <img className="messageImage" src={url} alt="loading..."/>
+        this.state.image = <img className="messageImage" onClick="show(this)" src={url} alt="loading..."/>
       }else{
-        this.state.image = <img class="messageImage" src={url} alt="loading..."/>
+        this.state.image = <img class="messageImage" onClick="show(this)" src={url} alt="loading..."/>
       }
   }
 }
