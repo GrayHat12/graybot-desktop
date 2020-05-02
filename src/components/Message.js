@@ -48,7 +48,7 @@ export default class Message {
   }
   setImage(url){
       if(!this.state.incoming){
-        this.state.image = <img className="messageImage" onClick="show(this)" src={url} alt="loading..."/>
+        this.state.image = <img class="messageImage" onClick="show(this)" src={url} alt="loading..."/>
       }else{
         this.state.image = <img class="messageImage" onClick="show(this)" src={url} alt="loading..."/>
       }

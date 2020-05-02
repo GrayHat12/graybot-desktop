@@ -7,6 +7,7 @@ import axios from 'axios';
 import reactElementToJSXString from 'react-element-to-jsx-string';
 import {GoPrimitiveDot} from 'react-icons/go';
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import fs from 'fs';
 
 class Chat extends React.Component {
   state = {
@@ -81,7 +82,7 @@ class Chat extends React.Component {
   addSent(message = new Message()) {
     var list = this.state.chatList;
     list.push(<div key={list.length} className="cover"><div className="sentMes">
-      {message.state.image!=null && message.state.image.length > 0 ? message.state.image : ""}
+      {message.state.image!=null ? message.state.image : ""}
       <br/>
       {message.state.text!=null?message.state.text:""}
     </div></div>);
@@ -149,9 +150,31 @@ class Chat extends React.Component {
     event.preventDefault();
   }
   imageChanged(event){
-    this.setState({
-      imageUrl : event.target.value
-    });
+    var img = event.target.files[0];
+    //console.log(img);
+    var data = new FormData();
+    data.append('source',img);
+    data.append('type','file');
+    data.append('action','upload');
+    data.append('auth_token','59ac5d270f66858671b535579784e6dca2ec7fe3');
+    data.append('expiration','PT1H');
+    var options = {
+      'method': 'POST',
+      'url': 'https://cors-grayhat.herokuapp.com/'+'https://imgbb.com/json',
+      'headers': {
+        'Accept': 'application/json',
+        'Origin': 'https://imgbb.com',
+        'Referer': 'https://imgbb.com/'
+      },
+      data: data
+    };
+    axios(options).then((res)=>{
+      //console.log(res);
+      this.setState({
+        openimg: img,
+        imageUrl: res.data.image.display_url
+      });
+    }).catch(console.error);
     event.preventDefault();
   }
   render() {
@@ -159,7 +182,7 @@ class Chat extends React.Component {
     <div className="chatParent">
     <div className="imageView">
     <div className="imparent">
-    <AiOutlineCloseCircle className="close img button" onClick={this.hide}/>
+    <AiOutlineCloseCircle color="#8D79CD" className="close img button" onClick={this.hide}/>
     <img className="altimg main" alt="previewImage" />
     <img className="altimg" alt="loader" src={require('../assets/Ring-Loading.gif')} />
     </div>
