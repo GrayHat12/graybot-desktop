@@ -7,7 +7,6 @@ import axios from 'axios';
 import reactElementToJSXString from 'react-element-to-jsx-string';
 import {GoPrimitiveDot} from 'react-icons/go';
 import { AiOutlineCloseCircle } from "react-icons/ai";
-import fs from 'fs';
 
 class Chat extends React.Component {
   state = {
@@ -160,7 +159,7 @@ class Chat extends React.Component {
     data.append('expiration','PT1H');
     var options = {
       'method': 'POST',
-      'url': 'https://cors-grayhat.herokuapp.com/'+'https://imgbb.com/json',
+      'url': 'https://cors-grayhat.herokuapp.com/https://imgbb.com/json',
       'headers': {
         'Accept': 'application/json',
         'Origin': 'https://imgbb.com',
