@@ -15,7 +15,8 @@ class Chat extends React.Component {
     totcon: '',
     openimg: '',
     imageUrl: '',
-    key: ''
+    key: '',
+    imsrc : null
   };
   imageinputRef = React.createRef();
   source;
@@ -36,6 +37,7 @@ class Chat extends React.Component {
     this.hide = this.hide.bind(this);
     this.cambuttonClicked = this.cambuttonClicked.bind(this);
     this.imageChanged = this.imageChanged.bind(this);
+    this.show = this.show.bind(this);
   }
   componentDidMount() {
     this.source = new EventSource('http://ec2-13-235-246-42.ap-south-1.compute.amazonaws.com:3000/events');
@@ -45,8 +47,8 @@ class Chat extends React.Component {
     var mess1 = new Message('user1',true);
     mess1.setText("Hey dude https://web.whatsapp.com/ check this out\nhttps://web.whatsapp.com/");
     mess1.setImage("https://user-images.githubusercontent.com/29608698/44212183-101bbe80-a141-11e8-9c4c-dcf3269508e0.png");
-    //console.log(reactElementToJSXString(this.getRecieved(mess1)));
     this.addRecieved(reactElementToJSXString(this.getRecieved(mess1)));
+    this.addSent(mess1);
   }
   connectionsUpdate(e){
     this.setState({
@@ -80,11 +82,17 @@ class Chat extends React.Component {
   }
   addSent(message = new Message()) {
     var list = this.state.chatList;
-    list.push(<div key={list.length} className="cover"><div className="sentMes">
+    var s = <div><div class="sentMes">
+    {message.state.image!=null ? message.state.image : ""}
+    <br/>
+    {message.state.text!=null?message.state.text:""}
+  </div></div>;
+    list.push(<div key={list.length} className="cover" dangerouslySetInnerHTML={{__html : reactElementToJSXString(s)}}></div>)
+    /*list.push(<div key={list.length} className="cover"><div className="sentMes">
       {message.state.image!=null ? message.state.image : ""}
       <br/>
       {message.state.text!=null?message.state.text:""}
-    </div></div>);
+    </div></div>);*/
     this.setState({ chatList: list });
   }
   sendMessage(){
@@ -148,8 +156,14 @@ class Chat extends React.Component {
     document.getElementsByClassName("altimg main")[0].removeAttribute("src");
     event.preventDefault();
   }
+  show(){
+    document.getElementsByClassName("imageView")[0].style.display = "block";
+  }
   imageChanged(event){
     var img = event.target.files[0];
+    this.setState({
+      imsrc : img
+    });
     //console.log(img);
     var data = new FormData();
     data.append('source',img);
@@ -161,18 +175,20 @@ class Chat extends React.Component {
       'method': 'POST',
       'url': 'https://cors-grayhat.herokuapp.com/https://imgbb.com/json',
       'headers': {
-        'Accept': 'application/json',
-        'Origin': 'https://imgbb.com',
-        'Referer': 'https://imgbb.com/'
+        'Accept': 'application/json'
+        //'Origin': 'https://imgbb.com',
+        //'Referer': 'https://imgbb.com/'
       },
       data: data
     };
+    this.show();
     axios(options).then((res)=>{
       //console.log(res);
       this.setState({
         openimg: img,
         imageUrl: res.data.image.display_url
       });
+      this.hide();
     }).catch(console.error);
     event.preventDefault();
   }

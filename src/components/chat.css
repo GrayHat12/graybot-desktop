@@ -116,6 +116,10 @@
 .messageImage {
   max-width: -webkit-fill-available;
   border-radius: 8px;
+  width: inherit;
+  height: inherit;
+  min-width: inherit;
+  min-height: inherit;
 }
 a:-webkit-any-link {
   color: #87cff0;

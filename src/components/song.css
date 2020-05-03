@@ -1,0 +1,67 @@
+.cardView {
+    width: 200px;
+    height: 200px;
+    padding: 13px;
+    margin: 0px;
+    border-radius: 10px;
+    background-color: #18121C;
+}
+.cardView:hover {
+    background-color: #242424;
+}
+.cardimg.img {
+    position: relative;
+    max-width: -webkit-fill-available;
+    max-height: 117px;
+}
+.Vidtitle {
+    font-family: monospace;
+    font-size: larger;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 60px;
+    display: block;
+    white-space: pre-wrap;
+}
+.vidAuthor {
+    font-family: monospace;
+    margin-top: 10px;
+    color: #AAAAAA;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+.playIcon {
+    z-index: 22;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 45px;
+    left: 78px;
+}
+.imgContainer {
+    position: relative;
+}
+.cardimg.img:hover {
+    border: 2px solid #DD518C;
+}
+.playIcon:hover {
+    color: #DD518C;
+}
+.authorWrapper {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+}
+.channelImg {
+    max-height: 30px;
+    align-self: center;
+    margin-right: 20px;
+    border-radius: 20px;
+}
+.cardTitle {
+    min-height: 50px;
+}
+.cardAuthor {
+    max-height: 13px;
+}
