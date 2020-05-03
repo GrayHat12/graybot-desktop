@@ -3,6 +3,7 @@ import { BsFillPlayFill } from "react-icons/bs";
 import './song.css';
 
 export default class Card extends React.Component {
+    
     constructor(){
         super();
     }

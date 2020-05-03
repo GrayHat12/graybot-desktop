@@ -32,3 +32,25 @@
 .searchBar:focus {
     outline: none;
 }
+.playerChildPlaying {
+    width: 66%;
+    height: 7.5%;
+    background-color: #8D79CD;
+    position: fixed;
+    bottom: 3px;
+    margin: auto;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+.cpthumb{
+    width: min-content;
+    height: inherit;
+    padding: 5px;
+}
+.cpthumb.img {
+    height: -webkit-fill-available;
+    width: auto;
+    object-fit: cover;
+    border-radius: 50%;
+    border: none;
+}
