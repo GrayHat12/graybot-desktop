@@ -71,10 +71,20 @@ class Player extends React.Component {
   isBottom(el) {
     return el.getBoundingClientRect().bottom <= window.innerHeight;
   }
-
+  handleScroll = (e) => {
+    const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
+    if (bottom) { 
+      console.log('scrolled bottom',e);
+    }
+  }
+  paneDidMount = (node) => {    
+    if(node) {      
+      node.addEventListener("scroll", this.handleScroll.bind(this));      
+    }
+  }
   render() {
     return (
-      <div className="playerParent">
+      <section className="playerParent" ref={this.paneDidMount} onScroll={this.handleScroll}>
         <div className="playerChildmain">
           <div className="MptopBar">
             <div>Music Service</div>
@@ -93,7 +103,7 @@ class Player extends React.Component {
                 </div>
             </div>
         </div>
-      </div>
+      </section>
     );
   }
 }

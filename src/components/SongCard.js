@@ -8,23 +8,20 @@ export default class Card extends React.Component {
     state = {
         item: new Item(),
         authorThumb: require('../assets/Ring-Loading.gif'),
-        videoInfo : {}
+        videoInfo : undefined,
+        isPlaying : false,
+        selectedFormat: null,
+        audio: new Audio(),
     }
     constructor(props){
         super();
+        this.clicked = this.clicked.bind(this);
+        this.getBestAudio = this.getBestAudio.bind(this);
+        this.play = this.play.bind(this);
+        this.pause = this.pause.bind(this);
     }
     componentDidMount(){
         this.state.item.setData(this.props.card.data);
-        /*this.state.item.getBasicItemData().then((val)=>{
-            this.setState({
-                videoInfo: val,
-                authorThumb: val['author']['avatar']
-            });
-            console.log('val',val);
-        }).catch((err)=>{
-            console.error(err);
-            //console.log('err',this.state.item.data);
-        });*/
         this.setState({
             item: this.state.item
         });
@@ -73,10 +70,58 @@ export default class Card extends React.Component {
             }
         }).catch(console.error);
     }
-    componentWillUnmount(){
+    getBestAudio(val){
+        console.log('bestaudio',val);
+        var formats = val['formats'];
+        var format = formats[0];
+        for(var i=0;i<formats.length;i++){
+            var cformat = formats[i];
+            if(typeof cformat['audioBitrate']=='number' && typeof format['audioBitrate']=='number'){
+                if(cformat['audioBitrate']>format['audioBitrate']){
+                    format = cformat;
+                }
+            }
+            if(typeof format['audioBitrate']=='undefined'){
+                format = cformat;
+            }
+        }
+        this.setState({
+            selectedFormat : format
+        });
+    }
+    play(event){
+        console.log('play');
+        this.setState({
+            isPlaying: true
+        });
+        this.state.audio.play();
+    }
+    pause(event){
+        console.log('pause');
+        this.setState({
+            isPlaying: false
+        });
+        this.state.audio.pause();
+    }
+    clicked(event){
+        console.log('clicked');
+        if(typeof this.state.videoInfo != 'undefined' && this.state.isPlaying==false) return this.play(event);
+        if(this.state.isPlaying == true) return this.pause(event);
+        this.state.item.getItemData().then((val)=>{
+            console.log('got val',val);
+            this.setState({
+                videoInfo: val
+            });
+            this.getBestAudio(val);
+            this.setState({
+                audio: new Audio(this.state.selectedFormat['url'])
+            });
+            this.state.audio.addEventListener('canplaythrough',this.play);
+        }).catch(console.error);
+        event.preventDefault();
     }
     render(){
-        return(<div className="cardView">
+        return(<div className="cardView" onClick={this.clicked}>
             <div className="cardImage">
                 <div className="imgContainer">
                     <img className="cardimg img" src={this.state.item.data.thumbnail} alt="thumbnail"/>
