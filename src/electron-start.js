@@ -13,13 +13,30 @@ let mainWindow;
 
 function createWindow() {
     // Create the browser window.
-    mainWindow = new BrowserWindow({width: 1000, height: 900, webPreferences: {webSecurity: false}});
+    mainWindow = new BrowserWindow({
+        show: true,
+        width:1000,
+        height:800,
+        center:true,
+        fullscreenable:true,
+        title:'GrayBot',
+        darkTheme:true,
+        webPreferences:{
+            webSecurity: false,
+            devTools: true,
+        },
+        backgroundColor: "#251E2A"
+    });
 
     // and load the index.html of the app.
     mainWindow.loadURL('http://localhost:3000');
 
     // Open the DevTools.
     //mainWindow.webContents.openDevTools();
+
+    mainWindow.once('ready-to-show',()=>{
+        //mainWindow.show();
+    });
 
     // Emitted when the window is closed.
     mainWindow.on('closed', function () {
